@@ -1,6 +1,10 @@
 require 'socket'
 require 'fcntl'
 
+# Exception thrown from with_lock when the lock was not acquired.
+class Locked < RuntimeError
+end
+
 # A client for elock.
 class ELock
 
@@ -26,8 +30,13 @@ class ELock
   end
 
   # Run a block while holding the named lock.
+  # raises Locked if the lock could not be acquired.
   def with_lock(name, timeout=nil)
-    yield if lock(name, timeout).first == 200 
+    if lock(name, timeout).first == 200
+      yield
+    else
+      raise Locked
+    end
   ensure
     unlock name
   end
