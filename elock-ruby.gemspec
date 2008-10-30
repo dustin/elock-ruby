@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "elock-client"
-  s.version = "0.2"
+  s.version = "0.3"
   s.date = "2008-05-29"
   s.summary = "Ruby client for the elock distributed lock server."
   s.email = "dustin@spy.net"
