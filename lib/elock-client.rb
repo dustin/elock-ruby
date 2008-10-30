@@ -29,6 +29,22 @@ class ELock
     do_cmd("unlock_all")
   end
 
+  # Get server stats
+  def stats
+    @socket.write("stats\r\n")
+    line = @socket.gets("\r\n")
+    rv={}
+    if line.to_i == 200
+      line = @socket.gets("\r\n").strip
+      while line != 'END'
+        s, name, val=line.split
+        rv[name]=val
+        line = @socket.gets("\r\n").strip
+      end
+    end
+    rv
+  end
+
   # Run a block while holding the named lock.
   # raises Locked if the lock could not be acquired.
   def with_lock(name, timeout=nil)
