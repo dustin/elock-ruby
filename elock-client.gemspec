@@ -1,7 +1,11 @@
+# -*- mode: ruby -*-
+
+require 'time'
+
 Gem::Specification.new do |s|
   s.name = "elock-client"
-  s.version = "0.3"
-  s.date = "2008-05-29"
+  s.version = `git describe`.gsub('-', '.')
+  s.date = Time.now.strftime '%Y-%m-%d'
   s.summary = "Ruby client for the elock distributed lock server."
   s.email = "dustin@spy.net"
   s.homepage = "http://github.com/dustin/elock-ruby"
